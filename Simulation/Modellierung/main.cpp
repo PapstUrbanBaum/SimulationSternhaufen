@@ -45,9 +45,11 @@ int main() {
     file9.close();
 
     // Objekte aus Datei einlesen
-    string filename = "Datenbanksätze/NGC188.txt"; // Datei mit den Daten aus der ESA-Datenbank
+    string filename = "Datenbanksätze/M4.txt"; // Datei mit den Daten aus der ESA-Datenbank
     vector<Objekt> objekte = readObjectsFromFile(filename); // Funktion zum Übertragen der Daten aus der Datei ins Programm
     
+    cout << objekte.size();
+
     // Eichen der Daten
     vector<double> k;
     for (int i = objekte.size()-1; i >= 0; i--){
@@ -56,7 +58,7 @@ int main() {
         // Koordinaten des Letzen Körpers im vector werden auf 0 gesetzt. Die Koordinaten aller anderen Körper werden nun neu berechnet mit dem letzten Körper als Koordinatenursprung
         objekte[i].changeKoordinaten({k[0] - objekte[0].getKoordinaten()[0], k[1] - objekte[0].getKoordinaten()[1], k[2] - objekte[0].getKoordinaten()[2]});
     }
-
+     
     // Prüfen ob Objekte vorhanden sind
     if (objekte.empty()) {
         cerr << "Keine Objekte geladen!" << endl;
@@ -68,7 +70,7 @@ int main() {
     array<double, 7> _massezentrum; //_massezentrum initialisieren
 
     long long int time = 8e8; // Simulationsdauer in Jahren
-    double schritt = 5000; // Simulationsschritt
+    double schritt = 10; // Simulationsschritt
     long long int plottime = 4e6; // Zeitintervalle zu denen Diagramme geplottet werden
     
     // Programmschleife von 0 bis Simulationsdauer
@@ -96,7 +98,7 @@ int main() {
         this_thread::sleep_for(chrono::milliseconds(0)); // Simulationsintervall (auf 0 gesetzt für schnellste Darstellung) 
 
         // Alle 10^7 Jahre Diagramme erstellen bzw. am Anfang der Simulation in kürzeren Abständen
-        if (int(i) % plottime == 0 || (int(i) % 2000000 == 0 && i <= 200000000) || (int(i) % 100000 == 0 && i <= 4000000) ) {
+        /*if (int(i) % plottime == 0 || (int(i) % 2000000 == 0 && i <= 200000000) || (int(i) % 100000 == 0 && i <= 4000000) ) {
             
             writeEpotToFile(objekte, _massezentrum, "../Diagramme/Daten/Epot.txt"); // potenzielle Energie in Datei schreiben
             writeVelocitiesToFile(objekte, "../Diagramme/Daten/velocities.txt"); // Geschwindigkeiten in Datei schreiben
@@ -140,10 +142,10 @@ int main() {
             command.clear();
             command << "python3 ../Diagramme/Externe_Python-Programme/Epot_Histogramm.py ../Diagramme/Daten/Epot.txt " << n << " " << i;
             system(command.str().c_str());
-        }
+        }*/
     }
 
-    command.str("");
+    /*command.str("");
     command.clear();
     command << "python3 ../Diagramme/Externe_Python-Programme/Eges.py ";
     system(command.str().c_str());
@@ -161,7 +163,7 @@ int main() {
     command.str("");
     command.clear();
     command << "python3 ../Diagramme/Externe_Python-Programme/Vmed.py ";
-    system(command.str().c_str());
+    system(command.str().c_str());*/
 
 
     return 0;

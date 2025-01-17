@@ -31,9 +31,9 @@ def update(num):
     ax.scatter(koerper_koordinaten[:, 0], koerper_koordinaten[:, 1], koerper_koordinaten[:, 2], c='r', marker='o')
 
     # Auf Wunsch Achsen festsetzen
-    #ax.set_xlim(-1000000, 1000000)
-    #ax.set_ylim(-1000000, 1000000)
-    #ax.set_zlim(-1000000, 1000000)
+    ax.set_xlim(-30000000, 30000000)
+    ax.set_ylim(-30000000, 30000000)
+    ax.set_zlim(-30000000, 30000000)
 
     ax.set_xlabel('X-Koordinaten in AE')
     ax.set_ylabel('Y-Koordinaten in AE')
